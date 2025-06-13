@@ -6,6 +6,7 @@ O trabalho deve ser feito em grupo de no máximo quatro pessoas. Os códigos par
 
 ## Alunos
 
-- Daniel Fernandes
-- Lucas Guimarães 
-- Samuel Sucena 
+- DANIEL FERNANDES SILVA (222008459)
+- GUILHERME OLIVEIRA (222008682)
+- LUCAS GUIMARAES BORGES (222015159)
+- SAMUEL SUCENA DE MORAES (222006436)
