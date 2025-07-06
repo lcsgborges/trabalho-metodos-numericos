@@ -22,10 +22,19 @@ class Metodos:
         self.k3 =  (self.C * (math.sqrt(1 + (y+self.k2/2 )**2) ) )  * self.h
     def k4_calculate(self, x , y):
         self.k4 =  (self.C * (math.sqrt(1 + (y+self.k3/2 )**2) ) )  * self.h
+
+    def calculate_y(self , x , y )->int:
+        self.k1_calculate(x , y)
+        self.k2_calculate(x , y)
+        self.k3_calculate(x , y)
+        self.k4_calculate(x , y)
+
+        return self.h * (self.k1 + 2*self.k2 + 2*self.k3 + self.k4)
     
     def runge_kutta(self,passo:float ,  x0 , y0):
-        
-        return self.k1 , self.k2
+        self.h = passo
+        return self.calculate_y(x0 , y0)
+
 
 result =  Metodos()
 
