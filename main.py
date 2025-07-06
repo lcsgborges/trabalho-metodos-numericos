@@ -2,31 +2,31 @@
 
 import math
 
-c = 0.041**(-1)
 
-class metodos:
-
+class Metodos:
+    
     def __init__(self):
-        y = 0 
-        self.eq =  c * (math.sqrt(1 + y**2) )
+        self.C = 0.041**(-1)
+        self.h = 0
+        self.k1 = 0
+        self.k2 = 0 
+        self.k3 = 0 
+        self.k4 = 0 
+        self.xy = [{}]
+
+    def k1_calculate(self , x , y):
+        self.k1 = (self.C * (math.sqrt(1 + y**2) ) )  * self.h
+    def k2_calculate(self, x , y):
+        self.k2 =  (self.C * (math.sqrt(1 + (y+self.k1/2 )**2) ) )  * self.h
+    def k3_calculate(self, x , y):
+        self.k3 =  (self.C * (math.sqrt(1 + (y+self.k2/2 )**2) ) )  * self.h
+    def k4_calculate(self, x , y):
+        self.k4 =  (self.C * (math.sqrt(1 + (y+self.k3/2 )**2) ) )  * self.h
     
-    def k1(x , y):
-        pass
-    def k2():
-        pass
-    def k3():
-        pass
-    def k4():
-        pass
-    
-    def runge_kutta(derivada , passo:float ,  x0 , y0):
+    def runge_kutta(self,passo:float ,  x0 , y0):
         
-        ...
+        return self.k1 , self.k2
 
+result =  Metodos()
 
-        # k1 = 
-        #k2   = 
-
-        #k3  = 
- 
-        #k4 = 
+print(result.runge_kutta(0.01 , 0 , 15))
