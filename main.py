@@ -12,7 +12,7 @@ class Metodos:
         self.k2 = 0 
         self.k3 = 0 
         self.k4 = 0 
-        self.xy = [{}]
+        self.xy = []
 
     def k1_calculate(self , x , y):
         self.k1 = (self.C * (math.sqrt(1 + y**2) ) )  * self.h
@@ -29,13 +29,26 @@ class Metodos:
         self.k3_calculate(x , y)
         self.k4_calculate(x , y)
 
-        return self.h * (self.k1 + 2*self.k2 + 2*self.k3 + self.k4)
+        return y + ((self.h/ 6) *(self.k1 + 2*self.k2 + 2*self.k3 + self.k4))
     
-    def runge_kutta(self,passo:float ,  x0 , y0):
+    def runge_kutta(self,passo:float ,  x0 , y0 , x_final ):
         self.h = passo
-        return self.calculate_y(x0 , y0)
+        self.xy.append({"x0": x0 , "y0":y0})
+        yn = self.calculate_y(x=x0 , y=y0)
+        print(yn)
+        while abs(x0-x_final) < x_final:
+            ...
+            
+      
+
+
 
 
 result =  Metodos()
 
-print(result.runge_kutta(0.01 , 0 , 15))
+print(result.runge_kutta(0.01 , 0 , 15 , 20))
+
+
+xf = 20
+xi = 0
+parada = 0.00001
