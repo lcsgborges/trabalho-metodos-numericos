@@ -20,21 +20,21 @@ class Metodos:
         k1 = self.fun(x , y)
         k2 = self.fun(x+ self.h/2, y + k1/2)
         k3 = self.fun(x + self.h/2 , y + k2/2)
-        k4 = self.fun(x + self.h/2 , y + k3/2)
+        k4 = self.fun(x + self.h , y + k3)
         y_ = y + ((self.h/ 6) *(k1 + 2*k2 + 2*k3 + k4))
         return y_
     
     def runge_kutta(self,passo:float ,  x0 , y0 , x_final , parada):
         
-        y_ = y0
-        
-        while True:
-            y_ = self.calculate_y(x0, y_)
-
-            x0 = x0+self.h
-
-            if abs(x_final - x0) <  parada:
-                break
+        yf = self.calculate_y(0 , 15)
+        print(yf)
+        #while True:
+        #    y_ = self.calculate_y(x0, y_)
+#
+        #    x0 = x0+self.h
+#
+        #    if abs(x_final - x0) <  parada:
+        #        break
 
 
 
