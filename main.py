@@ -1,68 +1,108 @@
-# ARQUIVO PRINCIPAL PARA RESOLUÇÃO DO TRABALHO (PROBLEMA 1):
+import numpy as np
+from scipy.optimize import fsolve
+import matplotlib.pyplot as plt
 
-import math
+C = 0.041
+y0 = 15
+y_target = 10
+h = 0.01
+tol = 1e-5
 
-import matplotlib.pyplot as plt 
 
-
-class Metodos:
+# metodo do tiro
+def metodo_tiro(s, return_full=False):
+    u, v = y0, s  
+    x = 0
+    x_vals = [x]
+    y_vals = [u]
     
-    def __init__(self):
-        self.C = 0.041**(-1)
-        self.h = 0.01
-        self.xy = []
-    def fun(self, x, y)->int:
-        result = (self.C * (math.sqrt(1 + y**2) ) )  * self.h
-        return result
 
-
-    def calculate_y(self , x , y )->int:
-        k1 = self.fun(x , y)
-        k2 = self.fun(x+ self.h/2, y + k1/2)
-        k3 = self.fun(x + self.h/2 , y + k2/2)
-        k4 = self.fun(x + self.h , y + k3)
-        y_ = y + ((self.h/ 6) *(k1 + 2*k2 + 2*k3 + k4))
-        return y_
-    
-    def runge_kutta(self,passo:float ,  x0 , y0 , x_final , parada):
+    # runge kutta 4
+    while x < 20:
+        k1_u = v
+        k1_v = C * np.sqrt(1 + v**2)
         
-        yf = self.calculate_y(0 , 15)
-        print(yf)
-        #while True:
-        #    y_ = self.calculate_y(x0, y_)
-#
-        #    x0 = x0+self.h
-#
-        #    if abs(x_final - x0) <  parada:
-        #        break
+        k2_u = v + 0.5 * h * k1_v
+        k2_v = C * np.sqrt(1 + (v + 0.5 * h * k1_v)**2)
+        
+        k3_u = v + 0.5 * h * k2_v
+        k3_v = C * np.sqrt(1 + (v + 0.5 * h * k2_v)**2)
+        
+        k4_u = v + h * k3_v
+        k4_v = C * np.sqrt(1 + (v + h * k3_v)**2)
+        
+        u += h * (k1_u + 2*k2_u + 2*k3_u + k4_u) / 6
+        v += h * (k1_v + 2*k2_v + 2*k3_v + k4_v) / 6
+        x += h
+        
+        if return_full:
+            x_vals.append(x)
+            y_vals.append(u)
+    
+    if return_full:
+        return np.array(x_vals), np.array(y_vals)
+    else:
+        return u - y_target
+
+def newton(s_guess=0.0):
+    s = s_guess
+    for _ in range(100):
+        F = metodo_tiro(s)
+        if abs(F) < tol:
+            return s
+        
+        ds = 1e-6
+        F_deriv = (metodo_tiro(s + ds) - F) / ds
+        s -= F / F_deriv
+    return s
+
+s_final = newton(s_guess=-0.1)
+x_vals, y_vals = metodo_tiro(s_final, return_full=True)
+
+print(f"Valor ajustado de s = y'(0): {s_final:.6f}")
+print(f"Erro em y(20): {abs(metodo_tiro(s_final)):.6f}")
+
+plt.plot(x_vals, y_vals, label="Solução numérica")
+plt.scatter([0, 20], [y0, y_target], color='red', label="Condições de contorno")
+plt.xlabel("x (m)"); plt.ylabel("y (m)")
+plt.legend(); plt.grid(); plt.show()
+
+
+def numerical_derivatives(x, y, h):
+    y_prime = np.gradient(y, h)  
+    y_double_prime = np.gradient(y_prime, h)  
+    return y_prime, y_double_prime
+
+y_prime, y_double_prime = numerical_derivatives(x_vals, y_vals, h)
+
+
+lhs = y_double_prime
+rhs = C * np.sqrt(1 + y_prime**2)
+error = np.max(np.abs(lhs - rhs))
+print(f"Erro máximo na verificação da EDO: {error:.6f}")
 
 
 
 
-    def plot_graph(self):
-        x_vals = []
-        y_vals = []
 
-        for ponto in self.xy:
-            for k, v in ponto.items():
-                if k.startswith("x"):
-                    x_vals.append(v)
-                elif k.startswith("y"):
-                    y_vals.append(v)
-
-        plt.plot(x_vals, y_vals, label="Solução RK4")
-        plt.xlabel("x")
-        plt.ylabel("y")
-        plt.title("Solução da EDO com Runge-Kutta 4ª ordem")
-        plt.grid(True)
-        plt.legend()
-        plt.show()
+coefficients = np.polyfit(x_vals, y_vals, deg=4)
+P = np.poly1d(coefficients)
 
 
-
-result =  Metodos()
-
-result.runge_kutta(passo=0.01 , x0=0 , y0=15 , x_final=20 , parada=  0.00001)
-#result.plot_graph()
+P_prime = P.deriv()
+P_double_prime = P_prime.deriv()
 
 
+P_y = P(x_vals)
+P_y_prime = P_prime(x_vals)
+P_y_double_prime = P_double_prime(x_vals)
+
+
+rhs_poly = C * np.sqrt(1 + P_y_prime**2)
+error_poly = np.max(np.abs(P_y_double_prime - rhs_poly))
+print(f"Erro máximo na regressão polinomial: {error_poly:.6f}")
+
+
+plt.plot(x_vals, y_vals, label="Solução numérica")
+plt.plot(x_vals, P_y, '--', label="Regressão polinomial (4º grau)")
+plt.legend(); plt.grid(); plt.show()
