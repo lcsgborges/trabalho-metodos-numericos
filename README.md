@@ -1,12 +1,37 @@
-# Trabalho Métodos Numéricos
+# Trabalho de Métodos Numéricos - Cabo Flexível Suspenso
 
-## Observações
+## Descrição do Problema
 
-O trabalho deve ser feito em grupo de no máximo quatro pessoas. Os códigos para a resolução do trabalho podem ser feitos em uma das seguintes linguagens de programação: MatLab, Octave, SciLab, Python, Julia, Fortran, C ou C++. Deve ser feito um relatório para explicar a resolução do problema proposto. E todos os códigos utilizados para a realização do trabalho devem ser entregues junto com o relatório compactado em um arquivo zip. A entrega da tarefa no ambiente Aprender 3 deve ser feita por apenas um membro do grupo.
+Este projeto resolve numericamente o problema de um cabo flexível suspenso entre dois pontos, descrito pela equação diferencial:
 
-## Alunos
+$$\frac{d^{2}y}{dx^{2}}=C\sqrt{1+(\frac{dy}{dx})^{2}}$$
+
+**Parâmetros:**
+- Constante C = 0.041 m⁻¹
+- Condições de contorno: y(0) = 15 m, y(20) = 10 m
+- Método: Runge-Kutta de 4ª ordem com h = 0.01
+- Tolerância: 1×10⁻⁵
+
+## Como Executar
+
+### 1. **Instalar dependências:**
+```bash
+pip install -r requirements.txt
+```
+
+### 2. **Executar o programa:**
+```bash
+python src/cabo_flexivel.py
+```
+
+### 3. **Resultados:**
+- **Gráficos** salvos em `results/images/`
+- **Dados** salvos em `results/data/`
+- **Análise** detalhada em `docs/analise_resultados.md`
+
+### Alunos
 
 - DANIEL FERNANDES SILVA (222008459)
 - GUILHERME OLIVEIRA (222008682)
-- LUCAS GUIMARAES BORGES (222015159)
+- LUCAS GUIMARÃES BORGES (222015159)
 - SAMUEL SUCENA DE MORAES (222006436)

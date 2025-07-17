@@ -1,0 +1,25 @@
+RESUMO DOS RESULTADOS
+==================================================
+
+QUESTÃO 1 - Método do Tiro:
+   - Valor de y'(0): -0.697719
+   - Erro na condição de contorno: 0.000001
+
+QUESTÃO 2 - Verificação da EDO:
+   - Erro máximo absoluto: 0.024997
+   - Erro médio absoluto: 0.000034
+   - Erro máximo relativo: 0.500059 (50.0059%)
+   - Erro médio relativo: 0.000750 (0.0750%)
+
+QUESTÃO 3 - Regressão Polinomial:
+   - Erro máximo absoluto: 0.000098
+   - Erro médio absoluto: 0.000016
+   - Erro máximo relativo: 0.001965 (0.1965%)
+   - Erro médio relativo: 0.000356 (0.0356%)
+
+4. Coeficientes do polinômio de 4º grau:
+   a_4 = 0.00000298
+   a_3 = -0.00018788
+   a_2 = 0.02494596
+   a_1 = -0.69758507
+   a_0 = 14.99991565
