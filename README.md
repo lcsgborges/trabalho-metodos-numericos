@@ -13,24 +13,26 @@ $$\frac{d^{2}y}{dx^{2}}=C\sqrt{1+(\frac{dy}{dx})^{2}}$$
 - Tolerância: 1×10⁻⁵
 
 ## Como Executar
+
+### 1. **Clonar o repositório:**
 ```bash
 git clone git@github.com:lcsgborges/trabalho-metodos-numericos.git
 cd trabalho-metodos-numericos
 ```
 
-> Crie um ambiente virtual antes 
+> Crie um ambiente virtua
 
-### 1. **Instalar dependências:**
+### 2. **Instalar dependências:**
 ```bash
 pip install -r requirements.txt
 ```
 
-### 2. **Executar o programa:**
+### 3. **Executar o programa:**
 ```bash
 python src/cabo_flexivel.py
 ```
 
-### 3. **Resultados:**
+### 4. **Resultados:**
 - **Gráficos** salvos em `results/images/`
 - **Dados** salvos em `results/data/`
 
