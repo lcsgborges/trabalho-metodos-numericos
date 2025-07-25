@@ -14,6 +14,8 @@ $$\frac{d^{2}y}{dx^{2}}=C\sqrt{1+(\frac{dy}{dx})^{2}}$$
 
 ## Como Executar
 
+> Primeiramente, crie um ambiente virtual
+
 ### 1. **Instalar dependências:**
 ```bash
 pip install -r requirements.txt
