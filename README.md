@@ -20,7 +20,7 @@ git clone git@github.com:lcsgborges/trabalho-metodos-numericos.git
 cd trabalho-metodos-numericos
 ```
 
-> Crie um ambiente virtua
+> Crie um ambiente virtual antes de seguir os próximos passos
 
 ### 2. **Instalar dependências:**
 ```bash
